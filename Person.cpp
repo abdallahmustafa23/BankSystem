@@ -6,6 +6,11 @@ Person::Person(const string& name, const string& password) :name("no_name"), pas
 	set_name(name);
 	set_password(password);	
 }
+Person::Person(int id ,const string& name, const string& password) :id(id),name("no_name"), password("no_password")
+{
+	set_name(name);
+	set_password(password);	
+}
 
 bool Person::set_name(const string& name) {
 	if (Validation::is_valid_name(name)) {

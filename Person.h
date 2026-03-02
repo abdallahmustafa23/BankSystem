@@ -8,6 +8,7 @@ protected:
 	int id;
 public:
 	Person(const string& name, const string& password);
+	Person(int id,const string& name, const string& password);
 	bool set_name(const string& name);
 	bool set_password(const string& password);
 	const string& get_name()const;

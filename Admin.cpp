@@ -6,6 +6,10 @@ Admin::Admin(const string& name, const string& password, double salary)
 {
     id = ++nextAdminID;
 }
+Admin::Admin(int id,const string& name, const string& password, double salary)
+    : Employee(id,name, password, salary)
+{
+}
 
 void Admin::display_info() const
 {

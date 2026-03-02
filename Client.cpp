@@ -6,6 +6,11 @@ Client::Client(const string& name, const string& password, double balance)
 	id = ++nextClientID;
 	set_balance(balance);
 }
+Client::Client(int id,const string& name, const string& password, double balance)
+	: Person(name, password), balance(0)
+{	
+	set_balance(balance);
+}
 
 bool Client::set_balance(double balance)
 {
