@@ -3,11 +3,15 @@
 
 class Employee : public Person
 {
+private:
+    static int nextEmployeeID;
+
 protected:
     double salary;
 
 public:
     Employee(const string& name, const string& password, double salary);
+    Employee(int id,const string& name, const string& password, double salary);
 
     bool set_salary(double salary);
     double get_salary() const;
