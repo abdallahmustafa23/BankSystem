@@ -7,6 +7,11 @@ Employee::Employee(const string& name, const string& password, double salary)
     id = ++nextEmployeeID;
     set_salary(salary);
 }
+Employee::Employee(int id,const string& name, const string& password, double salary)
+    : Person(id,name, password), salary{}
+{    
+    set_salary(salary);
+}
 
 bool Employee::set_salary(double salary)
 {

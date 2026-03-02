@@ -7,6 +7,7 @@ private:
 	static int nextClientID;
 public:
 	Client(const string& name, const string& password, double balance);
+	Client(int id,const string& name, const string& password, double balance);
 
 	bool set_balance(double balance);
 
