@@ -3,6 +3,7 @@
 
 class Admin : public Employee
 {
+   static int nextAdminID;
 public:
     Admin(const string& name, const string& password, double salary);
 

@@ -5,7 +5,6 @@ class Person
 {
 protected:
 	string name, password;
-	static int nextID;
 	int id;
 public:
 	Person(const string& name, const string& password);

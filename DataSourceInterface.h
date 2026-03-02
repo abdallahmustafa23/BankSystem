@@ -6,9 +6,9 @@ using namespace std;
 class DataSourceInterface
 {
 public:
-	virtual void addClient(Client obj) = 0;
-	virtual void addEmployee(Employee obj) = 0;
-	virtual void addAdmin(Admin obj) = 0;
+	virtual void addClient(const Client& obj) = 0;
+	virtual void addEmployee(const Employee& obj) = 0;
+	virtual void addAdmin(const Admin& obj) = 0;
 
 	virtual void getAllClients() = 0;
 	virtual void getAllEmployees() = 0;
@@ -16,8 +16,6 @@ public:
 
 	virtual void removeAllClients() = 0;
 	virtual void removeAllEmployees() = 0;
-	virtual void removeAllAdmins() = 0;	
-
-    virtual ~DataSourceInterface() {};
+	virtual void removeAllAdmins() = 0;	    
 };
 
