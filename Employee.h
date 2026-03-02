@@ -3,6 +3,9 @@
 
 class Employee : public Person
 {
+private:
+    static int nextEmployeeID;
+
 protected:
     double salary;
 

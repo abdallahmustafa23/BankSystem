@@ -4,6 +4,7 @@
 class Client : public Person {
 private:
 	double balance;
+	static int nextClientID;
 public:
 	Client(const string& name, const string& password, double balance);
 

@@ -4,6 +4,7 @@
 Employee::Employee(const string& name, const string& password, double salary)
     : Person(name, password), salary{}
 {
+    id = ++nextEmployeeID;
     set_salary(salary);
 }
 
@@ -26,3 +27,5 @@ void Employee::display_info() const
     cout << "Employee ID: " << to_string(id) << "\nName: " + name << "\nSalary: " << to_string(salary);
 
 }
+
+int Employee::nextEmployeeID = 0;

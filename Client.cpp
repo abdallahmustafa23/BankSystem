@@ -3,6 +3,7 @@
 Client::Client(const string& name, const string& password, double balance)
 	: Person(name, password), balance(0)
 {
+	id = ++nextClientID;
 	set_balance(balance);
 }
 
@@ -61,3 +62,5 @@ void Client::display_info() const {
 
 	cout << "Client ID: " << to_string(id) << "\nName: " << name << "\nbalance: " << to_string(balance);
 }
+
+int Client::nextClientID = 0;
