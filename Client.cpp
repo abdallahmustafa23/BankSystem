@@ -9,6 +9,8 @@ Client::Client(const string& name, const string& password, double balance)
 Client::Client(int id,const string& name, const string& password, double balance)
 	: Person(name, password), balance(0)
 {	
+	if (id > nextClientID)
+    nextClientID = id;
 	set_balance(balance);
 }
 
