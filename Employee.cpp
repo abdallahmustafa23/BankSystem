@@ -10,6 +10,8 @@ Employee::Employee(const string& name, const string& password, double salary)
 Employee::Employee(int id,const string& name, const string& password, double salary)
     : Person(id,name, password), salary{}
 {    
+    if (id > nextEmployeeID)
+    nextEmployeeID = id;
     set_salary(salary);
 }
 
