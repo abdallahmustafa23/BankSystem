@@ -9,6 +9,8 @@ Admin::Admin(const string& name, const string& password, double salary)
 Admin::Admin(int id,const string& name, const string& password, double salary)
     : Employee(id,name, password, salary)
 {
+    if (id > nextAdminID)
+    nextAdminID = id;
 }
 
 void Admin::display_info() const
