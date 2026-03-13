@@ -1,5 +1,7 @@
 #include "Employee.h"
+#include "FilesHelper.h"
 
+int Employee::nextEmployeeID = 0;
 
 Employee::Employee(const string& name, const string& password, double salary)
     : Person(name, password), salary{}
@@ -7,9 +9,9 @@ Employee::Employee(const string& name, const string& password, double salary)
     id = ++nextEmployeeID;
     set_salary(salary);
 }
-Employee::Employee(int id,const string& name, const string& password, double salary)
-    : Person(id,name, password), salary{}
-{    
+Employee::Employee(int id, const string& name, const string& password, double salary)
+    : Person(id, name, password), salary{}
+{
     if (id > nextEmployeeID)
         nextEmployeeID = id;
     set_salary(salary);
@@ -31,17 +33,16 @@ double Employee::get_salary() const {
 
 void Employee::display_info() const
 {
-    cout << "Employee ID: " << to_string(id) << "\nName: " + name << "\nSalary: " << to_string(salary);
+    cout << "\nEmployee ID: " << to_string(id) << "\nName: " + name << "\nSalary: " << to_string(salary);
 
 }
-
 void Employee::addClient(Client& client)
 {
     FilesHelper::saveClient(client);
     cout << "Client added successfully\n";
 }
 
-Client* Employee::searchClient(int id)
+Client Employee::searchClient(int id)
 {
     vector<Client> clients = FilesHelper::getClients();
 
@@ -49,11 +50,10 @@ Client* Employee::searchClient(int id)
     {
         if (clients[i].get_id() == id)
         {
-            return &clients[i];
+            return clients[i];
         }
     }
-
-    return nullptr;
+    throw runtime_error("Client not found");
 }
 
 void Employee::listClients()
@@ -67,7 +67,7 @@ void Employee::listClients()
     }
 }
 
-void Employee::editClient(int id,const string& name,const string& password, double balance)
+void Employee::editClient(int id, const string& name, const string& password, double balance)
 {
     vector<Client> clients = FilesHelper::getClients();
     bool found = false;
@@ -99,5 +99,3 @@ void Employee::editClient(int id,const string& name,const string& password, doub
 
     cout << "Client updated successfully\n";
 }
-
-int Employee::nextEmployeeID = 0;
