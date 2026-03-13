@@ -6,9 +6,11 @@ Client::Client(const string& name, const string& password, double balance)
 	id = ++nextClientID;
 	set_balance(balance);
 }
-Client::Client(int id,const string& name, const string& password, double balance)
-	: Person(name, password), balance(0)
-{	
+Client::Client(int id, const string& name, const string& password, double balance)
+	: Person(id, name, password), balance(0)
+{
+	if (id > nextClientID)
+		nextClientID = id;
 	set_balance(balance);
 }
 
@@ -30,7 +32,7 @@ void Client::deposit(double amount) {
 	else
 	{
 		cout << "Invalid deposit\n";
-	}	
+	}
 }
 
 void Client::withdraw(double amount) {
@@ -42,7 +44,7 @@ void Client::withdraw(double amount) {
 	else
 	{
 		cout << "Invalid withdraw\n";
-	}	
+	}
 }
 
 void Client::transfar_to(Client& anothur, double amount) {
@@ -56,16 +58,16 @@ void Client::transfar_to(Client& anothur, double amount) {
 	{
 		cout << "Transfer failed\n";
 	}
-	
+
 }
 double Client::get_balance() const { return balance; }
 
 void Client::check_balance()const {
-	cout << balance;
+	cout << balance << endl;
 }
 void Client::display_info() const {
 
-	cout << "Client ID: " << to_string(id) << "\nName: " << name << "\nbalance: " << to_string(balance);
+	cout << "\nClient ID: " << to_string(id) << "\nName: " << name << "\nbalance: " << to_string(balance);
 }
 
 int Client::nextClientID = 0;
