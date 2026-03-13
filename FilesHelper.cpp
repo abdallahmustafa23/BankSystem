@@ -13,17 +13,20 @@ int FilesHelper::getLast(const string& fileName) {
     return id;
 }
 
+//id|name|password|balance , const string& fileName, const string& lastIdFile
+void FilesHelper::saveClient(const Client& c) {
 
-//id|name|password|balance
-void FilesHelper::saveClient(const Client& c ,const string& fileName , const string& lastIdFile ) {
-    ofstream file(fileName, ios::app);
+    ofstream file("Clients.txt", ios::app);
+
     file << c.get_id() << "|" << c.get_name() << "|" << c.get_password() << "|" << c.get_balance() << endl;
+
     file.close();
-    saveLast(lastIdFile, c.get_id());
+
+    saveLast("LastClientId.txt", c.get_id());
 }
 
 //id|name|password|salary
-void FilesHelper::saveEmployee(const Employee& e, const string& fileName, const string& lastIdFile ) {
+void FilesHelper::saveEmployee(const Employee& e, const string& fileName, const string& lastIdFile) {
     ofstream file(fileName, ios::app);
     file << e.get_id() << "|" << e.get_name() << "|" << e.get_password() << "|" << e.get_salary() << endl;
     file.close();
@@ -31,7 +34,7 @@ void FilesHelper::saveEmployee(const Employee& e, const string& fileName, const 
 }
 
 //id|name|password|salary
-void FilesHelper::saveAdmin(const Admin& a, const string& fileName , const string& lastIdFile ) {
+void FilesHelper::saveAdmin(const Admin& a, const string& fileName, const string& lastIdFile) {
     ofstream file(fileName, ios::app);
     file << a.get_id() << "|" << a.get_name() << "|" << a.get_password() << "|" << a.get_salary() << endl;
     file.close();
@@ -39,7 +42,7 @@ void FilesHelper::saveAdmin(const Admin& a, const string& fileName , const strin
 }
 
 
-vector<Client> FilesHelper::getClients(const string& fileName ) {
+vector<Client> FilesHelper::getClients(const string& fileName) {
     ifstream file(fileName, ios::in);
     vector<Client> clients;
     string line;
@@ -50,7 +53,7 @@ vector<Client> FilesHelper::getClients(const string& fileName ) {
     return clients;
 }
 
-vector<Employee> FilesHelper::getEmployees(const string& fileName ) {
+vector<Employee> FilesHelper::getEmployees(const string& fileName) {
     ifstream file(fileName, ios::in);
     vector<Employee> employees;
     string line;
@@ -61,7 +64,7 @@ vector<Employee> FilesHelper::getEmployees(const string& fileName ) {
     return employees;
 }
 
-vector<Admin> FilesHelper::getAdmins(const string& fileName ) {
+vector<Admin> FilesHelper::getAdmins(const string& fileName) {
     ifstream file(fileName, ios::in);
     vector<Admin> admins;
     string line;
