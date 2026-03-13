@@ -1,13 +1,15 @@
 #include "Admin.h"
+#include "FilesHelper.h"
 
+int Admin::nextAdminID = 0;
 
 Admin::Admin(const string& name, const string& password, double salary)
     : Employee(name, password, salary)
 {
     id = ++nextAdminID;
 }
-Admin::Admin(int id,const string& name, const string& password, double salary)
-    : Employee(id,name, password, salary)
+Admin::Admin(int id, const string& name, const string& password, double salary)
+    : Employee(id, name, password, salary)
 {
     if (id > nextAdminID)
         nextAdminID = id;
@@ -17,14 +19,13 @@ void Admin::display_info() const
 {
     cout << "Admin ID: " << to_string(id) << "\nName: " << name << "\nSalary: " + to_string(salary);
 }
-
 void Admin::addClient(Client& client)
 {
     FilesHelper::saveClient(client);
     cout << "Client added successfully\n";
 }
 
-Client* Admin::searchClient(int id)
+Client Admin::searchClient(int id)
 {
     vector<Client> clients = FilesHelper::getClients();
 
@@ -32,12 +33,11 @@ Client* Admin::searchClient(int id)
     {
         if (clients[i].get_id() == id)
         {
-            return &clients[i];
+            return clients[i];
         }
     }
-
     cout << "Client not found\n";
-    return nullptr;
+    throw runtime_error("Client not found");
 }
 
 void Admin::listClient()
@@ -90,7 +90,7 @@ void Admin::addEmployee(Employee& employee)
     cout << "Employee added successfully\n";
 }
 
-Employee* Admin::searchEmployee(int id)
+Employee Admin::searchEmployee(int id)
 {
     vector<Employee> employees = FilesHelper::getEmployees();
 
@@ -98,15 +98,13 @@ Employee* Admin::searchEmployee(int id)
     {
         if (employees[i].get_id() == id)
         {
-            return &employees[i];
+            return employees[i];
         }
-    }
-
-    cout << "Employee not found\n";
-    return nullptr;
+    }  
+    throw runtime_error("Employee not found");
 }
 
-void Admin::editEmployee(int id,const string& name,const string& password, double salary)
+void Admin::editEmployee(int id, const string& name, const string& password, double salary)
 {
     vector<Employee> employees = FilesHelper::getEmployees();
     bool found = false;
@@ -150,4 +148,3 @@ void Admin::listEmployee()
     }
 }
 
-int Admin::nextAdminID = 0;
