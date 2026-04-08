@@ -1,61 +1,110 @@
 #include "EmployeeManager.h"
+#include "FilesHelper.h"
 
-void EmployeeManager::printEmployeeMenu() {
+void EmployeeManager::printEmployeeMenu()
+{
     cout << "\n===== Employee Menu =====\n";
-    cout << "1. Add New Client\n";
-    cout << "2. List All Clients\n";
-    cout << "3. Search For Client\n";
-    cout << "4. Edit Client Info\n";
+    cout << "1. Add Client\n";
+    cout << "2. Search Client\n";
+    cout << "3. List Clients\n";
+    cout << "4. Edit Client\n";
     cout << "5. Logout\n";
 }
 
-void EmployeeManager::newClient(Employee* employee) {
-    cout << "Add new client\n";
+void EmployeeManager::newClient(Employee* employee)
+{
+    string name, password;
+    double balance;
+
+    cout << "Enter Name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    cout << "Enter Password: ";
+    getline(cin, password);
+
+    cout << "Enter Balance: ";
+    cin >> balance;
+
+    Client c(name, password, balance);
+    employee->addClient(c);
 }
 
-void EmployeeManager::listAllClients(Employee* employee) {
-    cout << "List all clients\n";
+void EmployeeManager::listAllClients(Employee* employee)
+{
+    employee->listClients();
 }
 
-void EmployeeManager::searchForClient(Employee* employee) {
+void EmployeeManager::searchForClient(Employee* employee)
+{
     int id;
-    cout << "Enter client ID: ";
+    cout << "Enter Client ID: ";
     cin >> id;
-    cout << "Searching for client...\n";
+
+    Client c = employee->searchClient(id);
+    c.display_info();
 }
 
-void EmployeeManager::editClientInfo(Employee* employee) {
+void EmployeeManager::editClientInfo(Employee* employee)
+{
     int id;
-    cout << "Enter client ID to edit: ";
+    string name, password;
+    double balance;
+
+    cout << "Enter Client ID: ";
     cin >> id;
-    cout << "Editing client info...\n";
+
+    cout << "Enter New Name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    cout << "Enter New Password: ";
+    getline(cin, password);
+
+    cout << "Enter New Balance: ";
+    cin >> balance;
+
+    employee->editClient(id, name, password, balance);
 }
 
-Employee* EmployeeManager::login(int id, string password) {
-    cout << "Login process\n";
+Employee* EmployeeManager::login(int id, string password)
+{
+    vector<Employee> employees = FilesHelper::getEmployees();
+
+    for (int i = 0; i < employees.size(); i++)
+    {
+        if (employees[i].get_id() == id && employees[i].get_password() == password)
+        {
+            return new Employee(employees[i]);
+        }
+    }
+
+    cout << "Login Failed\n";
     return nullptr;
 }
 
-bool EmployeeManager::employeeOptions(Employee* employee) {
+bool EmployeeManager::employeeOptions(Employee* employee)
+{
     int choice;
+
     printEmployeeMenu();
-    cout << "Choose: ";
     cin >> choice;
 
-    switch (choice) {
-    case 1:
+    if (choice == 1)
         newClient(employee);
-        break;
-    case 2:
-        listAllClients(employee);
-        break;
-    case 3:
+
+    else if (choice == 2)
         searchForClient(employee);
-        break;
-    case 4:
+
+    else if (choice == 3)
+        listAllClients(employee);
+
+    else if (choice == 4)
         editClientInfo(employee);
-        break;
-    case 5:
+
+    else if (choice == 5)
+    {
+        cout << "Logout\n";
         return false;
     }
 
